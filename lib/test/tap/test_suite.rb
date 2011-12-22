@@ -15,7 +15,7 @@ module Test
             yaml_content += line until (line=phpunit.gets) =~ /\A\s*\.\.\.\Z/
             @current_case.parse_details yaml_content
           else
-            @current_case.run(result, &progress_block) if @current_case.present?
+            @current_case.run(result, &progress_block) if ! @current_case.nil?
             @current_case = TestCase.new(line)
           end
         end
