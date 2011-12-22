@@ -1,4 +1,5 @@
 require 'test/tap/test_suite'
+require 'test/unit'
 
 module Test
   module PHPUnit
