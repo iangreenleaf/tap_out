@@ -12,7 +12,9 @@ module Test
         dummy, ok, failure, case_name, test_name = /^(ok|not ok) \d+ - ((?:\w+: )?)(\w+)::(.+)$/.match(@tap_line).to_a
         name = "#{sanitize_test_name test_name}(#{case_name})"
         yield(Test::Unit::TestCase::STARTED, name)
-        if ok == 'not ok'
+        if ok.nil?
+          result.add_error( RuntimeError.new @tap_line)
+        elsif ok == 'not ok'
           if failure.chomp(': ') == 'Failure'
             # If PHPUnit would return more info, we could fill this out
             result.add_failure(Test::Unit::Failure.new(name, [], failure_message))
